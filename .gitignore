@@ -1,0 +1,13 @@
+bin/
+obj/
+*.user
+*.suo
+*.bak
+*.cache
+*.log
+.vscode/
+node_modules/
+.env
+appsettings.Development.json
+appsettings.Production.json
+secrets.json

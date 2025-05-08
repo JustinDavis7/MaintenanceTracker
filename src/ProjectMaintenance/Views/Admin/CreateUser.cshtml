@@ -1,0 +1,49 @@
+@{
+    ViewData["Title"] = "Admin - Create New User";
+}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="~/css/Identity.css" asp-append-version="true">
+    </head>
+    <body>
+        <div class="container">
+            <main role="main" class="pb-3">
+                <h1>Create a new user</h1>
+                <h2>Enter requested info and click create</h2>
+                <hr>
+                <div class="row">
+                    @Html.Partial("AdminNavigation")
+                    <div class="col">
+                        <form id="create-user-form" method="post" action="@Url.Action("CreateUser", "Admin")">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" style="width: 480px;" required maxlength="50">
+                            </div>
+                            <div class="form-group">
+                                <label>What type of account are you creating?</label>
+                                <div>
+                                    <input type="radio" id="roleMaintenance" name="role" value="maintenance" checked required>
+                                    <label for="roleMaintenance">Maintenance</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="roleMaintenanceLead" name="role" value="maintenanceLead" required>
+                                    <label for="roleMaintenanceLead">Maintenance Lead</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="roleAdmin" name="role" value="admin" required>
+                                    <label for="roleAdmin">Admin</label>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Create User</button>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+        @section Scripts
+        {
+            <script type="text/javascript" src="~/js/createUser.js"></script>
+        }
+    </body>
+</html>

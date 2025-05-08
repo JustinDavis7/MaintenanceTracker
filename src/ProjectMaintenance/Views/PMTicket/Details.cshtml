@@ -1,0 +1,93 @@
+@*@model PMTicketDetailViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+    </head>
+    <body>
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-6">
+                <div class="details-card h-100">
+                    <div class="card-header">
+                        <div class="card-title"><b>@Html.DisplayFor(model => model.equipment.Name)</b></div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-light list-group-small">
+                            <li class="list-group-item px-4"><b>Task:</b> <span class="description-span">@Html.DisplayFor(model => model.pMTicket.Title)</span></li>
+                            <li class="list-group-item px-4"><b>Date to Be Performed:</b> <span>@Html.DisplayFor(model => model.pMTicket.DatePerformed)</span></li>
+                            <li class="list-group-item px-4"><b>Equipment Description:</b> <span>@Html.DisplayFor(model => model.equipment.Description)</span></li>
+                        </ul>
+                    </div>
+                    <div class="card-footer d-flex"> 
+                        <div class="row w-100">
+                            <div class="col-12 mb-2">
+                                <div class="d-flex justify-content-center flex-wrap">
+                                    <form asp-action="Delete" asp-route-id="@Model.pMTicket.Id" method="get">
+                                        @Html.AntiForgeryToken()
+                                        <button class="btn btn-secondary close-btn" data-toggle="tooltip" title="Delete">Delete</button>
+                                    </form>
+                                    <a asp-action="Edit" asp-route-id="@Model?.pMTicket.Id">
+                                        <button class="btn btn-secondary satisfy-btn">Edit</button>
+                                    </a>
+                                    <a asp-action="CompleteTicket" asp-route-id="@Model?.pMTicket.Id">
+                                        <button class="btn btn-secondary satisfy-btn">Complete</button>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <a asp-controller="Calendar" asp-action="Index"><button class="btn btn-secondary return-btn">Calendar</button></a>
+                                <a id="cancelEditButton" href="#" class="btn return-btn">Back</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <script src="~/js/pMTicketEdit.js"></script>
+    </body>
+</html> *@
+@model PMTicketDetailViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+    </head>
+    <body>
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-6">
+                <div class="details-card h-100">
+                    <div class="card-header">
+                        <div class="card-title"><b>@Html.DisplayFor(model => model.equipment.Name)</b></div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-light list-group-small">
+                            <li class="list-group-item px-4"><b>Task:</b> <span class="description-span">@Html.DisplayFor(model => model.pMTicket.Title)</span></li>
+                            <li class="list-group-item px-4"><b>Date to Be Performed:</b> <span>@Html.DisplayFor(model => model.pMTicket.DatePerformed)</span></li>
+                            <li class="list-group-item px-4"><b>Equipment Description:</b> <span>@Html.DisplayFor(model => model.equipment.Description)</span></li>
+                        </ul>
+                    </div>
+                    <div class="card-footer d-flex">
+                        <form asp-action="Delete" asp-route-id="@Model.pMTicket.Id" method="get">
+                                <button class="btn btn-secondary close-btn" data-toggle="tooltip" title="Delete">Delete</button>
+                        </form>
+                        <a asp-action="Edit" asp-route-id="@Model?.pMTicket.Id"><button class="btn btn-secondary satisfy-btn">Edit</button></a>
+                        <a asp-action="CompleteTicket" asp-route-id="@Model?.pMTicket.Id"><button class="btn btn-secondary satisfy-btn">Complete</button></a>
+                        <a asp-controller="Calendar" asp-action="Index"><button class="btn btn-secondary return-btn">Back to List</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @section Scripts
+        {
+            
+        }
+    </body>
+</html>

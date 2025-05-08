@@ -1,0 +1,22 @@
+@model ProjectMaintenance.Models.MaintenanceTicket
+
+<div class="kanban-ticket" draggable="true" data-id="@Model.Id">
+    <div class="col mb-3">
+        <a asp-action="Details" asp-route-id="@Model.Id" class="text-decoration-none text-dark">
+            <div class="card h-100 border">
+                <div class="card-header">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => Model.Title)</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text small"><b>Ticket Creator:</b> <span>@Html.DisplayFor(modelItem => Model.TicketCreatorNavigation.Name)</span></p>
+                    <p class="card-text small"><b>Date Created:</b> <span>@Html.DisplayFor(modelItem => Model.RequestCreationDate)</span></p>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="card-text small"><b>Priority:</b> <span>@Html.DisplayFor(modelItem => Model.PriorityLevel)</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div> 

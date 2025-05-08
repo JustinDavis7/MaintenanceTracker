@@ -1,0 +1,325 @@
+:root {
+  --main-background-color: rgb(255, 249, 243); /* Light cream color */
+  --main-orange-color: rgb(206,115,38);
+  --main-green-color: rgb(32, 66, 52);
+  --main-brown-color: rgb(33,13,0);
+  --btn-base-color: rgba(112, 111, 111, 0.832);
+}
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn {
+  margin-right: 5px;
+  transition: transform 0.5s ease-in-out;
+}
+
+.btn:hover {
+  transform: scale(1.07);
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color:var(--main-background-color);
+}
+
+.form-container {
+  max-width: 600px; /* Adjust the max-width as needed */
+  margin: 0 auto; /* Centers the form horizontally */
+  padding: 15px; /* Adds padding around the form */
+}
+
+.form-group {
+  margin-bottom: 1rem; /* Adds space between form groups */
+}
+
+.form-control {
+  width: 100%; /* Ensures inputs take up the full width of their container */
+}
+
+.text-danger {
+  display: block; /* Ensures validation messages are displayed as block elements */
+  margin-top: 0.25rem; /* Adds a small space above validation messages */
+}
+
+
+.card {
+  max-width: 400px;
+  overflow: auto;
+  word-wrap: break-word;
+  border-radius: 1em;
+}
+
+.details-card {
+  overflow: auto;
+  word-wrap: break-word;
+  border-radius: 1em;
+  border: 1px solid #ccc;
+}
+
+.maintenance-card {
+  overflow: auto;
+  word-wrap: break-word;
+  border-radius: 1em;
+  border: 1px solid #ccc;
+}
+
+.card ul li, .details-card ul li, .maintenance-card ul li {
+  display: grid;
+  grid-template-columns: max-content auto;
+  gap: 1rem;
+  background-color:var(--main-background-color);
+}
+
+.card ul li span, .details-card ul li span, .maintenance-card ul li span {
+  text-align: right;
+  overflow: auto;
+  word-wrap: break-word;
+  max-height: 30px;
+  background-color:var(--main-background-color);
+}
+
+.description-span {
+  max-height: none !important;
+}
+
+.card-title {
+  font-size: 20px;
+  max-height: 30px;
+}
+
+.creation-btn {
+  background-color: var(--main-orange-color);
+  color: white;
+}
+
+.details-btn, .delete-btn, .return-btn, .satisfy-btn, .close-btn, .archive-btn, .open-btn{
+  background-color: var(--btn-base-color);
+  color: white;
+  border: none;
+}
+
+.save-btn {
+  background-color: #0056b3;
+  color: white;
+}
+
+.btn-create-pm {
+  background-color: #007bff; /* Customize background color */
+  color: #ffffff; /* Customize text color */
+  border: 1px solid #007bff; /* Customize border color */
+  border-radius: 4px; /* Customize border radius */
+  padding: 5px 10px; /* Customize padding */
+  font-size: 14px; /* Customize font size */
+  cursor: pointer; /* Change cursor on hover */
+}
+
+.creation-btn:hover {
+  background-color: var(--main-green-color);
+}
+
+.satisfy-btn:hover, .save-btn:hover {
+  background-color: #055c18;
+  color: #fff;
+}
+
+.close-btn:hover, .delete-btn:hover
+{
+  background-color: #b30012;
+  color: #fff;
+}
+
+.archive-btn:hover, .details-btn:hover, .return-btn:hover
+{
+  background-color: #1d5784;
+  color: #fff;
+}
+
+.open-btn:hover 
+{
+  background-color: #0056b3;
+}
+
+.card-header {
+  justify-content: center;
+  background-color: var(--main-brown-color);
+  color: #fff;
+}
+
+.card-body {
+  background-color: var(--main-green-color);
+  color: #fff;
+}
+
+.card-footer {
+  justify-content: center;
+  background-color: var(--main-green-color);
+  color: #fff;
+}
+
+.logo {
+  width: 120px;
+  height: 70px;
+}
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767px) {
+  .logo {
+      width: 80px;
+      height: 55px;
+  }
+  .kanban-board {
+    justify-content: left !important;
+  }
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575px) {
+  .logo {
+      width: 65px;
+      height: 55px;
+  }
+  .kanban-board {
+    justify-content: left !important;
+  }
+}
+
+.kanban-board {
+  display: flex;
+  padding: 20px 0;
+  justify-content: center;
+  gap: 20px;
+  overflow-x: auto;
+  width: 100%;
+}
+
+.kanban-column {
+  flex: 0 0 340px;
+  padding: 10px;
+}
+
+.kanban-column:not(:last-child) {
+  border-right: 1px solid #ccc;
+}
+
+.kanban-column .scrollable-content {
+  min-height: 100px;
+}
+
+.scrollable-content{
+  padding-bottom: 200px;
+  overflow-y: auto;
+}
+
+.bi-plus-circle-fill, .bi-info-circle-fill, .bi-eye-fill{
+  transition: color 0.5s ease, background-color 0.5s ease;
+}
+
+.bi-plus-circle-fill:hover, .bi-info-circle-fill:hover, .bi-eye-fill:hover{
+  color: rgb(51, 204, 204) !important;
+  transform: scale(1.05);
+}
+
+.bi-check-circle-fill {
+  color: rgba(12, 255, 8, 0.462)
+}
+
+.bi-x-circle-fill {
+  color: rgba(255, 8, 8, 0.462)
+}
+
+.custom-select {
+  max-width: 200px; /* Adjust as needed */
+}
+
+.event-card-form {
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer; /* Makes it clear that the card is clickable */
+}
+
+.event-card {
+  border: none;
+  padding: 10px;
+  background-color: var(--main-green-color);
+}
+
+.event-header {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.event-description {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#calendar-container {
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  width: 100%; /* Ensure it takes full width */
+}
+
+#calendar {
+  min-width: 1000px; /* Ensure the calendar doesn’t get too narrow */
+  max-width: 100%; /* Ensure it fits within the container */
+}
+
+.fc {
+  font-size: 1rem; /* Adjust font size for better readability */
+}
+
+.fc-day-grid-day, .fc-day-grid-day > .fc-daygrid-day-frame {
+  min-width: 80px; /* Minimum width for day cells */
+}
+
+/* Ensure calendar fits properly in small screens */
+@media (max-width: 767px) {
+  #calendar {
+    width: 1200px; /* Adjust width to fit content */
+    min-width: 1200px; /* Ensure it doesn’t shrink too much */
+  }
+}
+
+@media (max-width: 575px) {
+  #calendar {
+    width: 100vw; /* Use viewport width */
+    min-width: 1000px; /* Ensure minimum width */
+  }
+
+  .fc-toolbar {
+    display: block; /* Make toolbar stack vertically on small screens */
+    overflow-x: auto;
+  }
+
+  .fc-button-group {
+    display: flex;
+    flex-wrap: wrap; /* Wrap buttons in the toolbar */
+    justify-content: space-between;
+  }
+
+  .fc-button {
+    flex: 1; /* Allow buttons to grow and shrink */
+    min-width: 0; /* Ensure buttons don’t shrink too much */
+  }
+}

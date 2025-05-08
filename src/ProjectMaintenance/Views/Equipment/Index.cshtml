@@ -1,0 +1,102 @@
+@model IEnumerable<ProjectMaintenance.Models.Equipment>
+
+@{
+    ViewData["Title"] = "Equipment";
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+    </head>
+    <body>
+        <p>
+            <button class="btn btn-secondary creation-btn" data-toggle="tooltip" title="Add New Equipment" onclick="showAddModal()">
+                Add New Equipment
+            </button>
+        </p>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <div class="card-title"><b>@Html.DisplayFor(modelItem => item.Name)</b></div>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-light list-group-small">
+                                <li class="list-group-item px-4"><b>Assigned Maint. Tech:</b> <span>@Html.DisplayFor(modelItem => item.LeadOperator)</span></li>
+                                <li class="list-group-item px-4"><b>Vendor:</b> <span>@Html.DisplayFor(modelItem => item.Vendor)</span></li>
+                                <li class="list-group-item px-4"><b>Model:</b> <span>@Html.DisplayFor(modelItem => item.Model)</span></li>
+                                <li class="list-group-item px-4"><b>SN:</b> <span>@Html.DisplayFor(modelItem => item.SerialNumber)</span></li>
+                            </ul>
+                        </div>
+                        <div class="card-footer d-flex">
+                            <form asp-action="Details" asp-route-id="@item.Id" method="post" class="mr-2">
+                                <button class="btn btn-secondary details-btn" data-toggle="tooltip" title="Details">Details</button>
+                            </form>
+                            <form asp-action="Delete" asp-route-id="@item.Id" method="get">
+                                <button class="btn btn-secondary delete-btn" data-toggle="tooltip" title="Delete">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div id="add-equipment-modal" class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Add New Equipment</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>Equipment Name is the only required field. Feel free to leave the rest blank if un-needed/wanted.</h5>
+                        <form id="add-equipment-form">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" id="name" name="Name" required maxlength="50">
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <input type="text" class="form-control" id="description" name="Description" maxlength="512">
+                            </div>
+                            <div class="form-group">
+                                <label for="lead-operator">Assigned Maint. Tech</label>
+                                <input type="text" class="form-control" id="lead-operator" name="LeadOperator" maxlength="50">
+                            </div>
+                            <div class="form-group">
+                                <label for="vendor">Vendor</label>
+                                <input type="text" class="form-control" id="vendor" name="Vendor" maxlength="50">
+                            </div>
+                            <div class="form-group">
+                                <label for="model">Model</label>
+                                <input type="text" class="form-control" id="model" name="Model" maxlength="255">
+                            </div>
+                            <div class="form-group">
+                                <label for="serial-number">Serial Number</label>
+                                <input type="text" class="form-control" id="serial-number" name="SerialNumber" maxlength="255">
+                            </div>
+                            <div class="form-group">
+                                <label for="acquired-date">Acquired Date</label>
+                                <input type="date" class="form-control" id="acquired-date" name="AcquiredDate">
+                            </div>
+                            <div class="form-group">
+                                <label for="warranty-expiration">Warranty Expiration</label>
+                                <input type="date" class="form-control" id="warranty-expiration" name="WarrantyExpiration">
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    @section Scripts
+    {
+        <script type="text/javascript" src="~/js/equipmentPage.js"></script>
+    }
+</html>

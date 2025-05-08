@@ -1,0 +1,19 @@
+@{
+    ViewData["Title"] = "Admin - Management Dashboard";
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/Identity.css" asp-append-version="true">
+</head>
+<div class="container">
+    <main role="main" class="pb-3">
+        <h1>Admin Dashboard</h1>
+        <h2>Manage the site via Admin Controls</h2>
+        <hr>
+        <div class="row">
+            @Html.Partial("AdminNavigation")
+            <div class="col-md-9">
+                <h3>Select an option from the list to begin administering.</h3>
+            </div>
+        </div>
+    </main>
+</div>

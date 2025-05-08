@@ -1,0 +1,61 @@
+@model IEnumerable<ProjectMaintenance.ViewModels.UsersVM>
+@{
+    ViewData["Title"] = "Admin - Site Users";
+}
+<head>
+
+</head>
+<div class="container">
+    <main role="main" class="pb-3">
+        <h1>Site-wide User List</h1>
+        <h2>Manage Users</h2>
+        <hr>
+        <div class="row">
+            @Html.Partial("AdminNavigation")
+            <div class="col">
+                @if(Model.Count() == 0)
+                {
+                    <h3>No users currently created!</h3>
+                    <br>
+                    <h4>As an admin, you can create some with the option to the left.</h4>
+                }
+                else
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UserName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Role)
+                                </th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(var user in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(model => user.UserName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => user.Role)
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-secondary close-btn" data-toggle="tooltip" title="Delete User" onclick="confirmDeleteUser('@user.UserName')">Delete</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </main>
+    @section Scripts
+    {
+        <script type="text/javascript" src="~/js/deleteUser.js"></script>
+    }
+</div>

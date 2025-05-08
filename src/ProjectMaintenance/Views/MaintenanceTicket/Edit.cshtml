@@ -1,0 +1,73 @@
+@model MaintenanceTicketViewModel
+
+@{
+    ViewData["Title"] = "Edit Maintenance Ticket";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <title>@ViewData["Title"] - ProjectMaintenance</title>
+</head>
+    <body>
+        <h2>@ViewData["Title"]</h2>
+
+        <div class="form-container">
+            <form asp-action="Edit" method="post">
+                <div class="form-group ml-3 flex-grow-1">
+                    <label for="assignedWorker" >Assigned Worker</label>
+                    <input asp-for="assignedWorker" type="text" class="form-control" id="assignedWorker" name="AssignedWorker" required maxlength="50">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea asp-for="description" type="text" class="form-control" id="description" name="Description" 
+                        style="width: 100%; height: 100px; padding: 10px;" 
+                        required maxlength="512" rows="4" required maxlength="512"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="name">Priority Level</label>
+                    <select asp-for="priorityLevel" class="form-control" id="priorityLevel" name="PriorityLevel" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="name">Planned Completion Date</label>
+                    <input asp-for="plannedCompletion" type="date" class="form-control" id="plannedCompletion" name="PlannedCompletion" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">
+                        Parts Required &emsp; <i class="bi bi-info-circle-fill" data-toggle="tooltip" title="Between each piece needed, place a comma (,). EX: bolt, shaft, pen"></i>
+                    </label>
+                    <input asp-for="partsList" type="text" class="form-control" id="partsList" name="PartsList" required>
+                </div>
+                <div class="form-group d-flex flex-row justify-content-between">
+                    <div class="col">
+                        <label>Maintenance Type</label>
+                        <div>
+                            <input type="radio" id="maintenanceType" name="MaintenanceType" value="Corrective" asp-for="maintenanceType">
+                            <label for="corrective">Corrective</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="maintenanceType" name="MaintenanceType" value="Prevention" asp-for="maintenanceType">
+                            <label for="prevention">Prevention</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn save-btn" />
+                    <a id="cancelEditButton" href="#" class="btn return-btn">Cancel</a>
+                </div>
+            </form>
+        </div>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+        <script src="~/js/pMTicketEdit.js"></script>
+    </body>
+</html>

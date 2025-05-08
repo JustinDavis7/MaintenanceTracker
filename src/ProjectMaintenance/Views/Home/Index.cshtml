@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    @if(User.Identity.Name =="admin")
+    {
+        <p><b>Please create a new admin account, and delete this temporary admin account.</b><br>
+            You will find this account in the Management Dashboard under the user list <b>after</b>
+            you create a new admin account.</p>
+    }
+    else if(!User.Identity.IsAuthenticated)
+    {
+        <p>Log in to your account to start managing your equipment, maintenance tickets, and calander.<br>
+            If you don't have an account, contact your administration and request creation of an account.</p>
+    }
+    else
+    {
+        <p>If you ever want to get back to this page, click the logo in the top left.</p>
+        //Need to put something in here, probably the calendar that was requested.
+    }
+</div>

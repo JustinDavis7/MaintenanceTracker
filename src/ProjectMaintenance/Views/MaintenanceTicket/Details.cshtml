@@ -1,0 +1,94 @@
+@model MaintenanceDetailViewModel
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    string title = @Model.Ticket.Title + " Details";
+    ViewData["Title"] = title;
+    var user = UserManager.GetUserAsync(User).Result;
+    var roles = UserManager.GetRolesAsync(user).Result;
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+    </head>
+    <body>
+        <input type="hidden" id="userRoles" value="@string.Join(",", roles)" />
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-6">
+                <div class="details-card h-100">
+                    <div class="card-header">
+                        <div class="card-title"><b>@Html.DisplayFor(model => model.Ticket.Title)</b></div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-light list-group-small">
+                            <li class="list-group-item px-4"><b>Creator:</b> <span>@Html.DisplayFor(model => model.User.Name)</span></li>
+                            <li class="list-group-item px-4"><b>Assigned Worker:</b> <span>@Html.DisplayFor(model => model.Ticket.AssignedWorker)</span></li>
+                            <li class="list-group-item px-4"><b>Maintenance Type:</b> <span>@Html.DisplayFor(model => model.Ticket.MaintenanceType)</span></li>
+                            <li class="list-group-item px-4"><b>Priority Level:</b> <span>@Html.DisplayFor(model => model.Ticket.PriorityLevel)</span></li>
+                            <li class="list-group-item px-4"><b>Date Created:</b> <span>@Html.DisplayFor(model => model.Ticket.RequestCreationDate)</span></li>
+                            <li class="list-group-item px-4"><b>Planned Completion:</b> <span>@Html.DisplayFor(model => model.Ticket.PlannedCompletion)</span></li>
+                            <li class="list-group-item px-4"><b>Satisfied:</b> <span>@Html.DisplayFor(model => model.Ticket.Satisfied)</span></li>
+                            <li class="list-group-item px-4"><b>Closed:</b> <span>@Html.DisplayFor(model => model.Ticket.Closed)</span></li>
+                            <li class="list-group-item px-4"><b>Archived:</b> <span>@Html.DisplayFor(model => model.Ticket.Archived)</span></li>
+                            <li class="list-group-item px-4"><b>Parts List:</b> <span>@Html.DisplayFor(model => model.Ticket.PartsList)</span></li>
+                            <li class="list-group-item px-4"><b>Description:</b> <span class="description-span">@Html.DisplayFor(model => model.Ticket.Description)</span></li>
+                        </ul>
+                    </div>
+                    <div class="card-footer d-flex">
+                        <div class="row w-100">
+                            <div class="col-12 mb-2">
+                                <div class="d-flex justify-content-center flex-wrap">
+                                    @if (!Model.Ticket.Archived) // Satisfied and Closed Ticket
+                                    {
+                                        @if (Model.Ticket.Satisfied || Model.Ticket.Closed)
+                                        {
+                                            <div class="p-2">
+                                                <button class="btn btn-secondary open-btn" data-toggle="tooltip" title="Open current ticket" onclick="openTicket(@Model.Ticket.Id)">Open Ticket</button>
+                                            </div>
+                                        }
+                                        @if (!Model.Ticket.Closed) // Only Satisfied Ticket
+                                        {
+                                            @if (!Model.Ticket.Satisfied) // Active Ticket
+                                            {
+                                                <div class="p-2">
+                                                    <button class="btn btn-secondary satisfy-btn" data-toggle="tooltip" title="Satisfy current ticket" onclick="satisfyTicket(@Model.Ticket.Id)">Satisfy</button>
+                                                </div>
+                                            }
+                                            <div class="p-2">
+                                                <button class="btn btn-secondary close-btn" data-toggle="tooltip" title="Close current ticket" onclick="closeTicket(@Model.Ticket.Id)">Close</button>
+                                            </div>
+                                        }
+                                        <div class="p-2">
+                                            <button class="btn btn-secondary archive-btn" data-toggle="tooltip" title="Archive current ticket" onclick="archiveTicket(@Model.Ticket.Id)">Archive</button>
+                                        </div>
+                                    }
+                                    @if (Model.Ticket.Archived) // Archived Ticket
+                                    {
+                                        <div class="p-2">
+                                            <button class="btn btn-secondary open-btn" data-toggle="tooltip" title="Open current ticket" onclick="openTicket(@Model.Ticket.Id)">Open Ticket</button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button onclick="location.href='@Url.Action("Index", "MaintenanceTicket")'" class="btn btn-secondary return-btn" data-toggle="tooltip" title="Back to List">Back to List</button>
+                                <a asp-action="Edit" asp-route-id="@Model?.Ticket.Id"><button class="btn btn-secondary satisfy-btn">Edit</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    @section Scripts
+    {
+        <script type="text/javascript" src="~/js/ticketDetailPage.js"></script>
+        <script>
+            var userRoles = @Html.Raw(Json.Serialize(roles));
+        </script>
+    }
+</html>

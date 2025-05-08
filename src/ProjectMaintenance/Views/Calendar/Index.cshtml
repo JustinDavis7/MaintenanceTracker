@@ -1,0 +1,59 @@
+@using System.Text.Json
+@model CalendarIndexViewModel
+@{
+    ViewData["Title"] = "Calendar";
+}
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+    </head>
+    <body>
+        <div id="calendar-container">
+            <div id="calendar"></div>
+        </div>
+        <div class="modal fade" id="createPMModal" tabindex="-1" aria-labelledby="createPMModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createPMModalLabel">Create PM Ticket</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="createPMForm">
+                            @Html.AntiForgeryToken()
+                            <div class="mb-3">
+                                <label for="Title" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="pmTitle" name="Title" maxlength="512" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="EquipmentId" class="form-label">Pick Equipment</label>
+                                <select class="form-control custom-select" id="equipmentId" name="EquipmentId" required>
+                                    <option disabled selected>-- select an option --</option>
+                                    @foreach(var equipment in Model.Equipment)
+                                    {
+                                        <option value="@equipment.Id">@equipment.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="DatePerformed" class="form-label">Date to be Performed</label>
+                                <input type="date" class="form-control" id="pmDatePerformed" name="DatePerformed" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    @section Scripts
+    {
+        <script type="text/javascript" src="~/js/calendar.js"></script>
+        <script type="text/javascript">
+            var equipmentList = @Html.Raw(JsonSerializer.Serialize(Model.Equipment));
+        </script>
+    }   
+</html>
+
+

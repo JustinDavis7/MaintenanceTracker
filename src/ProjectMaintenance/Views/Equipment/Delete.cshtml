@@ -1,0 +1,47 @@
+@model ProjectMaintenance.Models.Equipment
+
+@{
+    ViewData["Title"] = "Delete Equipment";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete Equipment</title>
+</head>
+<body>
+    <h3>Equipment to be deleted:</h3>
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-sm-12 col-md-6">
+            <div class="details-card h-100">
+                <div class="card-header">
+                    <div class="card-title"><b>@Html.DisplayFor(model => model.Name)</b></div>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-light list-group-small">
+                        <li class="list-group-item px-4"><b>Name:</b> <span>@Html.DisplayFor(model => model.Name)</span></li>
+                        <li class="list-group-item px-4"><b>Description:</b> <span>@Html.DisplayFor(model => model.Description)</span></li>
+                        <li class="list-group-item px-4"><b>Lead Operator:</b> <span>@Html.DisplayFor(model => model.LeadOperator)</span></li>
+                        <li class="list-group-item px-4"><b>Vendor:</b> <span>@Html.DisplayFor(model => model.Vendor)</span></li>
+                        <li class="list-group-item px-4"><b>Model:</b> <span>@Html.DisplayFor(model => model.Model)</span></li>
+                        <li class="list-group-item px-4"><b>SN:</b> <span>@Html.DisplayFor(model => model.SerialNumber)</span></li>
+                        <li class="list-group-item px-4"><b>Acquired Date:</b> <span>@Html.DisplayFor(model => model.AcquiredDate)</span></li>
+                        <li class="list-group-item px-4"><b>Warrant Exp:</b> <span>@Html.DisplayFor(model => model.WarrantyExpiration)</span></li>
+                    </ul>
+                </div>
+                <div class="card-footer d-flex">
+                    <form asp-action="Delete" asp-route-id="model.id" method="post">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                        <button type="button" onclick="location.href='@Url.Action("Index", "Equipment")'" class="btn btn-secondary return-btn">Back to List</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

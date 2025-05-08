@@ -1,0 +1,54 @@
+@model IEnumerable<ProjectMaintenance.Models.PMTicket>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <style>
+            .header-container {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 50px; /* Add spacing between the h1 and the button */
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header-container">
+            <h1>Index</h1>
+            <a asp-controller="Calendar" asp-action="Index">
+                <button class="btn btn-secondary return-btn">Back to Calendar</button>
+            </a>
+        </div>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <div class="card-title"><b>@Html.DisplayFor(modelItem => item.Title)</b></div>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-light list-group-small">
+                                <li class="list-group-item px-4"><b>Date Performed:</b> <span>@Html.DisplayFor(modelItem => item.DatePerformed)</span></li>
+                                <li class="list-group-item px-4"><b>Equipment:</b> <span>@Html.DisplayFor(modelItem => item.Equipment.Name)</span></li>
+                            </ul>
+                        </div>
+                        <div class="card-footer d-flex">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn satisfy-btn">Edit</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn details-btn">Details</a>
+                            <form asp-action="Delete" asp-route-id="@item.Id" method="post" >
+                                <button type="submit" class="btn delete-btn">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </body>
+</html>

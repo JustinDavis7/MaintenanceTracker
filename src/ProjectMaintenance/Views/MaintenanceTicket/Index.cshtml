@@ -1,0 +1,181 @@
+@model MaintenanceIndexViewModel
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Maintenance Tickets";
+    var user = UserManager.GetUserAsync(User).Result;
+    var roles = UserManager.GetRolesAsync(user).Result;
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <style>
+            .container {
+                padding: 10px;
+                margin: 0%;
+                max-width: none;
+            }     
+        </style>
+    </head>
+    <body>
+        <input type="hidden" id="userRoles" value="@string.Join(",", roles)" />
+        <div class="kanban-board">
+            <div class="kanban-column">
+                <h4 data-status="Active" class="d-flex justify-content-between align-items-center" style="padding-right: 30px;">
+                    <div>
+                        Active
+                        <i class="bi bi-info-circle-fill" data-toggle="tooltip" title="If you are on mobile, click a ticket to change its status. Otherwise, just drag it to the category you wish to set."></i>
+                    </div>
+                    <div class="icon-container">
+                        <i class="bi bi-plus-circle-fill" onclick="showAddModal()"></i>
+                    </div>               
+                </h4>
+                <div class="scrollable-content">
+                    @foreach (var ticket in Model.Tickets.Where(t => !t.Satisfied && !t.Closed))
+                    {
+                        <div class="ticket" data-ticket-id="@ticket.Id">
+                            @await Html.PartialAsync("_TicketPartial", ticket)
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="kanban-column">
+                <h4 data-status="Satisfied">Satisfied</h4>
+                <div class="scrollable-content">
+                    @foreach (var ticket in Model.Tickets.Where(t => t.Satisfied && !t.Closed))
+                    {
+                        <div class="ticket" data-ticket-id="@ticket.Id">
+                            @await Html.PartialAsync("_TicketPartial", ticket)
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="kanban-column">
+                <h4 data-status="Closed">Closed</h4>
+                <div class="scrollable-content">
+                    @foreach (var ticket in Model.Tickets.Where(t => t.Closed && !t.Archived))
+                    {
+                        <div class="ticket" data-ticket-id="@ticket.Id">
+                            @await Html.PartialAsync("_TicketPartial", ticket)
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="kanban-column">
+                <h4 data-status="Archived"><i class="bi bi-arrow-down-right" data-toggle="tooltip" title="Drag and drop a ticket to archive. It will disappear, but all archived tickets can be viewed by clicking the eye."> Archive Ticket </i><i class="bi bi-eye-fill" onclick="showArchivedModal()"></i></h4> 
+                <div class="scrollable-content">
+                </div>
+            </div>
+        </div>
+        <div id="add-ticket-modal" class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Add New Ticket</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>A ticket requies each field to be filled before it can be created.</h5>
+                        <form id="add-ticket-form">
+                            <div class="form-group">
+                                <label for="name">Ticket Title</label>
+                                <input type="text" class="form-control" id="title" name="Title" required maxlength="50">
+                            </div>
+                            <div class="form-group d-flex align-items-center">
+                                <div class="form-group col flex-grow-1">
+                                    <label for="equipment">Pick Equipment</label>
+                                    <select class="form-control custom-select" id="equipmentId" name="EquipmentId" required>
+                                        <option disabled selected>-- select an option --</option>
+                                        @foreach(var equipment in Model.Equipment)
+                                        {
+                                            <option value="@equipment.Id">@equipment.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group ml-3 flex-grow-1">
+                                    <label for="assignedWorker" >Assigned Worker</label>
+                                    <input type="text" class="form-control" id="assignedWorker" name="AssignedWorker" required maxlength="50">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <input type="text" class="form-control" id="description" name="Description" required maxlength="512">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Priority Level</label>
+                                <select class="form-control" id="priorityLevel" name="PriorityLevel" required>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Planned Completion Date</label>
+                                <input type="date" class="form-control" id="plannedCompletion" name="PlannedCompletion" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">
+                                    Parts Required &emsp; <i class="bi bi-info-circle-fill" data-toggle="tooltip" title="Between each piece needed, place a comma (,). EX: bolt, shaft, pen"></i>
+                                </label>
+                                <input type="text" class="form-control" id="partsList" name="PartsList" required>
+                            </div>
+                            <div class="form-group d-flex flex-row justify-content-between">
+                                <div class="col">
+                                    <label>Maintenance Type</label>
+                                    <div>
+                                        <input type="radio" id="maintenanceType" name="MaintenanceType" value="Corrective" checked required>
+                                        <label for="corrective">Corrective</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="maintenanceType" name="MaintenanceType" value="Prevention" required>
+                                        <label for="prevention">Prevention</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="requestCreationDate" name="RequestCreationDate" value="@DateTime.Today.ToString("yyyy-MM-dd")">
+                            <input type="hidden" id="ticketCreatorId" name="TicketCreatorId" value="1">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="archived-modal" class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Archived Tickets</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="scrollable-content">
+                            @foreach (var ticket in Model.Tickets.Where(t => t.Archived))
+                            {
+                                <div class="ticket" data-ticket-id="@ticket.Id">
+                                    @await Html.PartialAsync("_TicketPartial", ticket)
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    @section Scripts
+    {
+        <script type="text/javascript" src="~/js/ticketPage.js"></script>
+        <script>
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
+        <script>
+            var userRoles = @Html.Raw(Json.Serialize(roles));
+        </script>
+    }
+</html>

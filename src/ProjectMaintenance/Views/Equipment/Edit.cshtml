@@ -1,0 +1,68 @@
+@model ProjectMaintenance.Models.Equipment
+
+@{
+    ViewData["Title"] = "Edit Equipment";
+}
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <title>@ViewData["Title"] - ProjectMaintenance</title>
+    </head>
+    <body>
+        <h2>@ViewData["Title"]</h2>
+        <div class="form-container">
+            <form asp-action="Edit" method="post">
+                <div class="form-group">
+                    <label for="name">Equipment</label>
+                    <input asp-for="Name" type="text" class="form-control" id="name" name="Name" required>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="leadOperator">Assigned Maint. Tech</label>
+                    <input asp-for="LeadOperator" type="text" class="form-control" id="leadOperator" name="LeadOperator">
+                    <span asp-validation-for="LeadOperator" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="vendor">Vendor</label>
+                    <input asp-for="Vendor" type="text" class="form-control" id="vendor" name="Vendor">
+                    <span asp-validation-for="Vendor" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="model">Model</label>
+                    <input asp-for="Model" type="text" class="form-control" id="model" name="Model">
+                    <span asp-validation-for="Model" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="serialNumber">SN</label>
+                    <input asp-for="SerialNumber" type="text" class="form-control" id="serialNumber" name="SerialNumber">
+                    <span asp-validation-for="SerialNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="acquiredDate">Acquired Date:</label>
+                    <input asp-for="AcquiredDate" type="date" class="form-control" id="acquiredDate" name="AcquiredDate">
+                    <span asp-validation-for="AcquiredDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="warrantyExpiration">Warranty Exp:</label>
+                    <input asp-for="WarrantyExpiration" type="date" class="form-control" id="warrantyExpiration" name="WarrantyExpiration">
+                    <span asp-validation-for="WarrantyExpiration" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea asp-for="Description" class="form-control" id="description" name="Description" 
+                        style="width: 100%; height: 100px; padding: 10px;" 
+                        maxlength="512" rows="4"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn save-btn" />
+                    <a id="cancelEditButton" href="#" class="btn return-btn">Cancel</a>
+                </div>
+            </form>
+        </div>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    </body>
+</html>

@@ -1,0 +1,42 @@
+@model ProjectMaintenance.Models.PMTicket
+
+@{
+    ViewData["Title"] = "Edit PMTicket";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <title>@ViewData["Title"] - ProjectMaintenance</title>
+</head>
+    <body>
+        <h2>@ViewData["Title"]</h2>
+
+        <div class="form-container">
+            <form asp-action="Edit" method="post">
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                    <textarea asp-for="Title" asp-validation-for="Title"
+                        style="width: 100%; height: 100px; padding: 10px;" maxlength="512"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DatePerformed" class="control-label"></label>
+                    <input asp-for="DatePerformed" class="form-control" />
+                    <span asp-validation-for="DatePerformed" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn save-btn" />
+                    <a id="cancelEditButton" href="#" class="btn return-btn">Cancel</a>
+                </div>
+            </form>
+        </div>
+
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+        <script src="~/js/pMTicketEdit.js"></script>
+    </body>
+</html>
