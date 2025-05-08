@@ -52,32 +52,43 @@ Maintenance Tracker is a .NET MVC application designed to streamline the managem
 ## ⚙️ Setup Instructions
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/MaintenanceTracker.git
+   git clone https://github.com/JustinDavis7/MaintenanceTracker.git
    cd MaintenanceTracker
+   ```
 
 2. **Restore dependencies:**
    ```bash
    dotnet restore
+   ```
 
 3. **Apply migrations for both databases:**
    ```bash
    dotnet ef database update --context ApplicationDbContext
    dotnet ef database update --context ProjectMaintenanceDbContext
+   ```
 
 4. **Run the application:**
    ```bash
    dotnet run
+   ```
 
 5. **Access it locally:**
-   Open your browser and navigate to https://localhost:5148.
+   Open your browser and navigate to [https://localhost:5148](https://localhost:5148).
 
 ## 🚀 Future Enhancements
 - **Dashboard Analytics:**
    - Integration of visual metrics on the homepage to provide insights into:
       - Ticket counts by category (**Active, Satisfied, Closed, Archived**).
-      - The total number of **Preventative Maintenance (PM)** tickets.
+      - The total number of **Preventive Maintenance (PM)** tickets.
       - Upcoming maintenance schedules for better planning and resource allocation.
 - **Predictive Maintenance Insights:**
-   - Leverage historical data to predict equpiment failures and recommend maintenance schedules proactively.
+   - Leverage historical data to predict equipment failures and recommend maintenance schedules proactively.
 - **Enhanced Reporting Tools:**
    - Generate detailed reports on maintenance history, technician workload, and equipment lifecycle.
+
+## 🔒 License
+This project is licensed under the **MIT License** - see the [LICENSE](./LICENSE) file for details.   
+
+## ✉️ Contact
+**Justin Davis**  
+[LinkedIn Profile](https://www.linkedin.com/in/justin-davis-177060291/)
