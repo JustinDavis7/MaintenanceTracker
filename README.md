@@ -28,11 +28,14 @@ Maintenance Tracker is a .NET MVC application designed to streamline the managem
 ---
 
 ## 📷 Screenshots
-![Equipment List View](./screenshots/equipment_list.png)
+![Home View](./screenshots/home_view.png)
+![Equipment List View](./screenshots/equipment_page.png)
+![Equipment Detail View](./screenshots/equipment_details.png)
 ![Kanban Board](./screenshots/kanban_board.png)
+![Ticket Detail View](./screenshots/ticket_details.png)
 ![Calendar View](./screenshots/calendar_view.png)
-
-*(Make sure you add actual images to the `/screenshots` folder in your repo)*
+![PM View](./screenshots/pm_view.png)
+![Admin View](./screenshots/admin_management_dashboard.png)
 
 ---
 
