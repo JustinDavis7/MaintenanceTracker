@@ -66,7 +66,7 @@ Maintenance Tracker is a .NET MVC application designed to streamline the managem
    dotnet run
 
 5. **Access it locally:**
-   Open your browser and navigate to https://localhost:5001.
+   Open your browser and navigate to https://localhost:5148.
 
 ## 🚀 Future Enhancements
 - **Dashboard Analytics:**
